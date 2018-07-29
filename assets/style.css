@@ -2,11 +2,17 @@ label {
     font-weight: bold;
     margin-top: 10px;
 }
+body {
+    background-color: rgb(235, 225, 225);
+}
 button {
     margin: 0px 5px;
 }
 .GIFDiv {
     float: left;
-    border: 2px solid rgb(121, 174, 204);
+    border: 2px solid rgb(82, 182, 207);
     margin: 5px;
+}
+#animalInput {
+    width: 50%;
 }

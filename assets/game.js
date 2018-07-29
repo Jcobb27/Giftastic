@@ -10,7 +10,7 @@ $(document).ready(function () {
         //loop through topics array, labeling buttons
         for (var i = 0; i < topics.length; i++) {
             var button = $("<button>");
-            button.addClass("animalBtn");
+            button.addClass("animalBtn btn btn-info");
             button.attr("data-name", topics[i]);
             button.text(topics[i]);
             //apend button to page
@@ -23,10 +23,12 @@ $(document).ready(function () {
     $("#submitBtn").on("click", function (event) {
         event.preventDefault();
         var animal = $("#animalInput").val().trim();
+        //only add animal to topics if it's not an empty string
+        if (animal !== ""){
         topics.push(animal);
         //run render buttons function
         renderButtons();
-    })
+    }})
 
     //display GIFs function
     function displayGIFs() {
@@ -48,6 +50,7 @@ $(document).ready(function () {
                 //store rating in a variable
                 var rated = response.data[j].rating;
                 console.log("Rating: " + rated);
+                if (rated !== 'r' && rated !== 'pg-13'){
                 //create p tag with rating text
                 pRating = $("<p>").text("Rating: " + rated);
                 //add rating to GIF Div
@@ -66,7 +69,7 @@ $(document).ready(function () {
                 GIFDiv.append(image);
                 //put GIF and rating above previous GIF
                 $("#GIFSView").prepend(GIFDiv);
-            }
+            }}
         })
     }
 
