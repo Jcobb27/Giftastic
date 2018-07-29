@@ -3,6 +3,7 @@ $(document).ready(function () {
     //topics array
     var topics = ["panda", "polar bears", "penguin", "dog", "lion", "giraffe", "ape"];
 
+
     // Function for creating buttons
     function renderButtons() {
         $("#buttonsView").empty();
@@ -55,15 +56,38 @@ $(document).ready(function () {
                 var imageURL = response.data[j].images.fixed_height_still.url;
                 //create an element to hold the image
                 var image = $("<img>").attr("src", imageURL);
+                image.addClass("gif");
+                //give image data-state attribute of 'still'
+                image.attr("data-state", "still");
+                //give image data-still and data-animate attributes
+                image.attr("data-still", response.data[j].images.fixed_height_still.url);
+                image.attr("data-animate", response.data[j].images.fixed_height.url);
                 //add image to GIF Div
                 GIFDiv.append(image);
                 //put GIF and rating above previous GIF
                 $("#GIFSView").prepend(GIFDiv);
             }
-
         })
-
     }
+
+    //on click gif...
+    $(document).on("click", ".gif", function (){
+        console.log("click image works");
+        //store the data-state in var state
+        var state = $(this).attr("data-state");
+        //if state is still, change src url to data-animate and change data-state to animate
+        console.log($(this).attr("data-animate"));
+        if (state === "still"){
+            $(this).attr("src", $(this).attr("data-animate"));
+            console.log($(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        }
+        //if state is animate, change src url to data-still and change data-state to still
+        if (state === "animate"){
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+    })
 
     // Adding a click event listener for class "animalBtn"
     $(document).on("click", ".animalBtn", displayGIFs);
